@@ -241,11 +241,11 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://H:/Downloads/spigot-1.14.jar!/" />
+          <root url="jar://H:/Docs/Bungee test network/spigot/spigot-1.14.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="jar://H:/Downloads/spigot-1.14.jar!/" />
+          <root url="jar://H:/Docs/Bungee test network/spigot/spigot-1.14.2.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
