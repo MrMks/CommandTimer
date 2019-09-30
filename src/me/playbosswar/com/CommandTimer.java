@@ -13,7 +13,6 @@ public class CommandTimer extends JavaPlugin implements Listener {
 
 	public void onEnable() {
 		plugin = this;
-		Tools.registerEvents(this, new GUIListeners());
 		registerCommands();
 		Tools.registerBungeeChannels();
 		Tools.initConfig();
