@@ -1,5 +1,6 @@
 package me.playbosswar.com;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,9 +25,9 @@ public class CommandHandler implements CommandExecutor {
             }
         } else if(args[0].equals("reload")) {
             CommandTimer.getPlugin().reloadConfig();
+            Bukkit.getScheduler().cancelTasks(CommandTimer.getPlugin());
             Tools.reloadTaks();
             sender.sendMessage(ChatColor.GOLD + "CommandTimer reloaded");
-            Tools.closeAllInventories();
             return true;
         }
         return true;

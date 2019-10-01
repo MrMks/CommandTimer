@@ -6,9 +6,6 @@ import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.Plugin;
-
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -34,12 +31,6 @@ public class Tools {
 		CommandTimer.getPlugin().getConfig().options().copyDefaults(false);
 	}
 
-	public static void registerEvents(Plugin plugin, Listener... listeners) {
-		for (final Listener listener : listeners) {
-			Bukkit.getServer().getPluginManager().registerEvents(listener, plugin);
-		}
-	}
-
 	public static void registerBungeeChannels() {
 		CommandTimer.getPlugin().getServer().getMessenger().registerOutgoingPluginChannel(CommandTimer.getPlugin(), "ct:ct");
 	}
@@ -51,6 +42,7 @@ public class Tools {
 	}
 
 	public static void reloadTaks() {
+		cancelTasks();
 		Bukkit.getScheduler().cancelTasks(CommandTimer.getPlugin());
 		TaskRunner.startTasks();
 	}
