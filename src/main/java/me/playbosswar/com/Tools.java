@@ -134,7 +134,6 @@ public class Tools {
         tasksTimesExecuted.put(task, 0);
 
         if (useMinecraftTime) {
-            Bukkit.getConsoleSender().sendMessage("IS MINECRAFT TIME");
             for (String worldName : c.getStringList("tasks." + task + ".worlds")) {
                 String minecraftTime = Tools.calculateWorldTime(Bukkit.getWorld(worldName));
 
@@ -171,9 +170,7 @@ public class Tools {
             }
         } else {
             for (final String hour : c.getStringList("tasks." + task + ".time")) {
-                Bukkit.getConsoleSender().sendMessage("HOUR");
                 if (hour.contains("[")) {
-                    Bukkit.getConsoleSender().sendMessage("SCHEDULE");
                     scheduleHourRange(hour, task, command, gender, "world");
                     return;
                 }
