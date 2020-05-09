@@ -1,6 +1,5 @@
 #GENERAL
 timeonload: true
-command_alias: ct
 
 tasks:
   command_time:
