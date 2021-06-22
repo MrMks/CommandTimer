@@ -3,15 +3,14 @@ package me.playbosswar.com.commands;
 import me.playbosswar.com.Tools;
 import me.playbosswar.com.chat.ChatMenus;
 import me.playbosswar.com.utils.CommandTimer;
-import me.playbosswar.com.utils.Files;
-import me.playbosswar.com.utils.TimerManager;
 import me.playbosswar.com.utils.Messages;
+import me.playbosswar.com.utils.TimerManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class MainCommand implements CommandExecutor {
@@ -74,9 +73,14 @@ public class MainCommand implements CommandExecutor {
 
             if (args[0].equalsIgnoreCase("execute")) {
                 CommandTimer timer = TimerManager.getCommandTimer(args[1]);
-                LocalTime time = LocalTime.now();
-                LocalTime newTime = time.minusSeconds(timer.getSeconds());
-                timer.setLastExecuted(newTime);
+                if (timer == null) {
+                    Messages.sendMessageToPlayer(p, "We can't find a timer named " + args[1]);
+                } else {
+                    LocalDateTime time = LocalDateTime.now();
+                    LocalDateTime newTime = time.minusSeconds(timer.getSeconds());
+                    timer.setLastExecuted(newTime);
+                    Messages.sendMessageToPlayer(p, "");
+                }
                 return true;
             }
         }

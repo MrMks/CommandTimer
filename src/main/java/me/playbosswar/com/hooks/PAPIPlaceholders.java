@@ -3,12 +3,12 @@ package me.playbosswar.com.hooks;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.playbosswar.com.Tools;
 import me.playbosswar.com.utils.CommandTimer;
-import me.playbosswar.com.utils.TimerManager;
 import me.playbosswar.com.utils.Messages;
+import me.playbosswar.com.utils.TimerManager;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class PAPIPlaceholders extends PlaceholderExpansion {
@@ -69,15 +69,15 @@ public class PAPIPlaceholders extends PlaceholderExpansion {
         }
 
         if(commandField.equalsIgnoreCase("nextExecution")) {
-            LocalTime now = LocalTime.now();
-            LocalTime lastExecution = timer.getLastExecuted();
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime lastExecution = timer.getLastExecuted();
             long difference = lastExecution.until(now, ChronoUnit.SECONDS);
             return timer.getSeconds() - difference + "";
         }
 
         if(commandField.equalsIgnoreCase("nextExecutionFormat")) {
-            LocalTime now = LocalTime.now();
-            LocalTime lastExecution = timer.getLastExecuted();
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime lastExecution = timer.getLastExecuted();
             long difference = lastExecution.until(now, ChronoUnit.SECONDS);
             long timeLeft = timer.getSeconds() - difference;
 

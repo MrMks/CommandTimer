@@ -7,13 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.json.simple.parser.ParseException;
 
-import java.io.IOException;
-import java.time.DayOfWeek;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -62,7 +57,7 @@ public class CommandExecutor {
                             Messages.sendConsole("Timer is time related, checking if can be executed now");
                         }
 
-                        Boolean shouldBlock = true;
+                        boolean shouldBlock = true;
 
                         // Handle minecraft world time
                         if (timer.getUseMinecraftTime()) {
@@ -97,47 +92,48 @@ public class CommandExecutor {
                                 }
                             }
                         }
-
                         // Handle real world time
-                        for (String time : timer.getTimes()) {
-                            if(debug) {
-                                Messages.sendConsole("Found time " + time + ", checking if execution is needed");
-                            }
-
-                            LocalTime current = LocalTime.now().withNano(0);
-
-                            if (time.contains("[")) {
+                        else {
+                            for (String time : timer.getTimes()) {
                                 if(debug) {
-                                    Messages.sendConsole("Found time range");
+                                    Messages.sendConsole("Found time " + time + ", checking if execution is needed");
                                 }
 
-                                String[] hourRange = Tools.charRemoveAt(Tools.charRemoveAt(time, 0), time.length() - 2).split("-");
+                                LocalTime current = LocalTime.now().withNano(0);
 
-                                LocalTime startRange = LocalTime.parse(hourRange[0]);
-                                LocalTime endRange = LocalTime.parse(hourRange[1]);
-
-                                if (current.isAfter(startRange) && current.isBefore(endRange)) {
+                                if (time.contains("[")) {
                                     if(debug) {
-                                        Messages.sendConsole("Time is in range, continue processing...");
+                                        Messages.sendConsole("Found time range");
+                                    }
+
+                                    String[] hourRange = Tools.charRemoveAt(Tools.charRemoveAt(time, 0), time.length() - 2).split("-");
+
+                                    LocalTime startRange = LocalTime.parse(hourRange[0]);
+                                    LocalTime endRange = LocalTime.parse(hourRange[1]);
+
+                                    if (current.isAfter(startRange) && current.isBefore(endRange)) {
+                                        if(debug) {
+                                            Messages.sendConsole("Time is in range, continue processing...");
+                                        }
+
+                                        shouldBlock = false;
+                                    }
+                                }
+
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+                                if(debug) {
+                                    Messages.sendConsole("Time for timer is: " + time);
+                                    Messages.sendConsole("Current time is: " + current.format(formatter));
+                                }
+
+                                if (current.format(formatter).equals(time)) {
+                                    if(debug) {
+                                        Messages.sendConsole("Times are equal, continue processing...");
                                     }
 
                                     shouldBlock = false;
                                 }
-                            }
-
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-
-                            if(debug) {
-                                Messages.sendConsole("Time for timer is: " + time);
-                                Messages.sendConsole("Current time is: " + current.format(formatter));
-                            }
-
-                            if (current.format(formatter).equals(time)) {
-                                if(debug) {
-                                    Messages.sendConsole("Times are equal, continue processing...");
-                                }
-
-                                shouldBlock = false;
                             }
                         }
 
@@ -158,8 +154,8 @@ public class CommandExecutor {
                         continue;
                     }
 
-                    LocalTime lastTimeExecuted = timer.getLastExecuted();
-                    Duration secondsSinceLastExecution = Duration.between(lastTimeExecuted, LocalTime.now());
+                    LocalDateTime lastTimeExecuted = timer.getLastExecuted();
+                    Duration secondsSinceLastExecution = Duration.between(lastTimeExecuted, LocalDateTime.now());
 
                     // If the last execution happened less that timer seconds ago
 
@@ -253,7 +249,7 @@ public class CommandExecutor {
                         }
                     }
 
-                    final LocalTime lastExecuted = LocalTime.now();
+                    final LocalDateTime lastExecuted = LocalDateTime.now();
 
                     timer.setLastExecuted(lastExecuted);
                     timer.setTimesExecuted(timer.getTimesExecuted() + 1);

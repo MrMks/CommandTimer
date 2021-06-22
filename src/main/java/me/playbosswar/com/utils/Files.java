@@ -7,6 +7,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.nio.file.FileAlreadyExistsException;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -223,7 +224,7 @@ public class Files {
                     String lastExecuted = (String) o.getOrDefault("lastExecuted", "");
 
                     if (!lastExecuted.equals("")) {
-                        LocalTime lastExecutedTime = LocalTime.parse(lastExecuted);
+                        LocalDateTime lastExecutedTime = LocalDateTime.parse(lastExecuted);
                         t.setLastExecuted(lastExecutedTime);
                     }
 

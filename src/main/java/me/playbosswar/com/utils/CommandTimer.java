@@ -1,6 +1,6 @@
 package me.playbosswar.com.utils;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class CommandTimer {
@@ -16,7 +16,7 @@ public class CommandTimer {
     private ArrayList<String> days = new ArrayList<>();
     private int executionLimit = -1;
     private int timesExecuted = 0;
-    private LocalTime lastExecuted = LocalTime.now();
+    private LocalDateTime lastExecuted = LocalDateTime.now();
     private String requiredPermission = "";
     private int minPlayers = -1;
     private int maxPlayers = -1;
@@ -145,11 +145,11 @@ public class CommandTimer {
         this.timesExecuted = timesExecuted;
     }
 
-    public LocalTime getLastExecuted() {
+    public LocalDateTime getLastExecuted() {
         return lastExecuted;
     }
 
-    public void setLastExecuted(LocalTime lastExecuted) {
+    public void setLastExecuted(LocalDateTime lastExecuted) {
         this.lastExecuted = lastExecuted;
     }
 
